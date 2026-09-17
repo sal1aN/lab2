@@ -7,29 +7,27 @@ def calculate_deposit(deposit, annual_percentage, term=24):
     print(f"Final deposit value: {deposit:.2f}")
     return deposit
 
+def verify(value, prompt):
+    verified = True
+    while verified:
+        try:
+            verified = False
+            value = int(input(prompt))
+        except ValueError:
+            verified = True
+            print("Please enter a numeric value")
+            print()
+    return value
+
 def run():
     is_running = True
+    deposit, annual_percentage, term = 0, 0, 0
     while is_running:
-        try:
-            deposit = int(input("Enter the deposit amount: "))
-        except ValueError:
-            print("Please enter a numeric value")
-            print()
-            continue
-        try:
-            annual_percentage = int(input("Enter the annual percentage: "))
-        except ValueError:
-            print("Please enter a numeric value")
-            print()
-            continue
+        deposit = verify(deposit, "Enter the deposit amount: ")
+        annual_percentage = verify(annual_percentage, "Enter the annual percentage: ")
         enter_term = input("Do yo want to enter term(y/n): ")
         if enter_term == "y":
-            try:
-                term = int(input("Enter the term of deposit: "))
-            except ValueError:
-                print("Please enter a numeric value")
-                print()
-                continue
+            term = verify(term, "Enter the term of deposit: ")
             calculate_deposit(deposit, annual_percentage, term)
         else:
             calculate_deposit(deposit, annual_percentage)
